@@ -44,7 +44,7 @@ def train(args, params):
     util.save(preproc, save_dir)
 
     params.update({
-        "input_shape": [None, 1],
+        "input_shape": [None, params.get("leads", 1)],
         "num_categories": len(preproc.classes)
     })
 

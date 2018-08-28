@@ -116,7 +116,8 @@ def add_compile(model, **params):
         lr=params["learning_rate"],
         clipnorm=params.get("clipnorm", 1))
 
-    model.compile(loss='categorical_crossentropy',
+    loss = params.get("loss", "categorical_crossentropy")
+    model.compile(loss=loss,
                   optimizer=optimizer,
                   metrics=['accuracy'])
 
