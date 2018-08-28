@@ -7,7 +7,9 @@
     "conv_dropout": 0.2,
     "conv_num_skip": 2,
     "conv_increase_channels_at": 4,
+    "temporal_pooling": true,
     "loss": "binary_crossentropy",
+
 
     "learning_rate": 0.001,
     "batch_size": 1,

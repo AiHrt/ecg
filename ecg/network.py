@@ -59,7 +59,8 @@ def resnet_block(
         shape[2] *= 2
         return tuple(shape)
 
-    shortcut = MaxPooling1D(pool_size=subsample_length)(layer)
+    shortcut = MaxPooling1D(pool_size=subsample_length,
+                            padding='same')(layer)
     zero_pad = (block_index % params["conv_increase_channels_at"]) == 0 \
         and block_index > 0
     if zero_pad is True:
@@ -108,6 +109,9 @@ def add_output_layer(layer, **params):
     from keras.layers.core import Dense, Activation
     from keras.layers.wrappers import TimeDistributed
     layer = TimeDistributed(Dense(params["num_categories"]))(layer)
+    if params.get("temporal_pooling", False):
+        from keras.layers import GlobalMaxPooling1D
+        layer = GlobalMaxPooling1D()(layer)
     return Activation('softmax')(layer)
 
 def add_compile(model, **params):
